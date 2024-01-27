@@ -1,0 +1,141 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Skin Disease
+Detector{% endblock %} {% block styles %} {{ block.super }}
+<style>
+  body {
+    font-family: Helvetica, sans-serif;
+    padding: 5%;
+    text-align: center;
+    font-size: 50;
+  }
+
+  /* Styling the area of the slides */
+
+  #slideshow {
+    overflow: hidden;
+    height: 510px;
+    width: 728px;
+    margin: 0 auto;
+  }
+
+  /* Style each of the slides
+    with a fixed width and height */
+
+  .slide {
+    float: left;
+    height: 510px;
+    width: 728px;
+  }
+
+  /* Add animation to the slides */
+
+  .slide-wrapper {
+    /* Calculate the total width on the
+        basis of number of slides */
+    width: calc(728px * 4);
+
+    /* Specify the animation with the
+        duration and speed */
+    animation: slide 10s ease infinite;
+  }
+
+  /* Set the background color
+    of each of the slides */
+
+  .slide:nth-child(1) {
+    background: green;
+  }
+
+  .slide:nth-child(2) {
+    background: pink;
+  }
+
+  .slide:nth-child(3) {
+    background: red;
+  }
+
+  .slide:nth-child(4) {
+    background: yellow;
+  }
+
+  /* Define the animation
+    for the slideshow */
+
+  @keyframes slide {
+    /* Calculate the margin-left for
+        each of the slides */
+    20% {
+      margin-left: 0px;
+    }
+    40% {
+      margin-left: calc(-728px * 1);
+    }
+    60% {
+      margin-left: calc(-728px * 2);
+    }
+    80% {
+      margin-left: calc(-728px * 3);
+    }
+  }
+  div.introduction {
+    height: 500px;
+    background: url("{% static "skinpic_6.jpg" %}") no-repeat 50% 0%;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="introduction"></div>
+
+<div class="container mt-5">
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h2>About the Skin Cancer Detection System</h2>
+      <p>
+        The Skin Cancer Detection System is a powerful tool designed to assist
+        in early detection and diagnosis of skin cancer. It utilizes advanced
+        algorithms and image processing techniques to analyze skin images and
+        identify potential cancerous lesions.
+      </p>
+      <p>
+        Our system aims to improve the accuracy and efficiency of skin cancer
+        detection, enabling early intervention and improved patient outcomes.
+      </p>
+    </div>
+    <div class="col-md-6">
+      <h2>Key Features</h2>
+      <ul>
+        <li>
+          Accurate detection of potential skin cancer lesions based on image
+          analysis.
+        </li>
+        <li>
+          User-friendly interface for easy uploading and processing of skin
+          images.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12 text-center">
+      <h2>Get Started Today</h2>
+      <p>
+        Sign up for an account to access the Skin Cancer Detection System and
+        start early detection of skin cancer.
+      </p>
+      <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block scripts %} {{ block.super }}
+<script>
+  // JavaScript code for slide animation
+  const slideWrapper = document.querySelector(".slide-wrapper");
+
+  slideWrapper.addEventListener("animationiteration", () => {
+    slideWrapper.style.animationPlayState = "paused";
+    setTimeout(() => {
+      slideWrapper.style.animationPlayState = "running";
+    }, 10);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Image Preview
+{% endblock %}
+
+{% block content %}
+
+<div class="predicted-disease">
+
+  {% if messages %}
+        
+  {% for message in messages %}
+      <h5>{{message}}</h5>
+  {% endfor %}
+      
+{% endif %}
+
+  {% if predicted_disease %}
+    <h2>Predicted Disease:</h2>
+    <p>{{ predicted_disease }}</p>
+    <ul>
+      {% for i in disease %}
+      <li>
+        <strong>Symptoms:</strong>{{ i.symptoms }}<br>
+        <strong>Treatment:</strong>{{ i.treatment }}<br>
+        <strong>More Info:</strong><a href="https://www.google.com/search?q={{ i.disease_name }}">Google</a>
+      </li>
+      {% endfor %}
+
+  {% else %}
+    <p>No disease predicted</p>
+  {% endif %}
+</div>
+{% endblock %}

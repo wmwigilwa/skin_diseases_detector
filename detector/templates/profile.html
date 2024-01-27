@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+  <div class="container mt-3">
+    <h1>Profile</h1>
+    <hr>
+    <div class="row">
+      <div class="col-md-4">
+        <h3>User Information</h3>
+        <ul class="list-group">
+          <li class="list-group-item"><strong>Username:</strong> {{ user.username }}</li>
+          <li class="list-group-item"><strong>First Name:</strong> {{ user.userprofile.first_name }}</li>
+          <li class="list-group-item"><strong>Last Name:</strong> {{ user.userprofile.last_name }}</li>
+          <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+        </ul>
+        <div class="mt-3">
+          <a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a>
+          <a href="{% url 'update_profile' %}" class="btn btn-secondary">Update Profile</a>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h3>User Profile</h3>
+        {% if user.userprofile %}
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Profile Picture:</strong><br><img src="{{ user.userprofile.profile_picture.url }}" alt="profile_picture" class="img-fluid rounded"></li>
+            <li class="list-group-item"><strong>Phone Number:</strong> {{ user.userprofile.phone_number }}</li>
+            <li class="list-group-item"><strong>Address:</strong> {{ user.userprofile.address }}</li>
+            <li class="list-group-item"><strong>Region:</strong> {{ user.userprofile.region }}</li>
+            <li class="list-group-item"><strong>Country:</strong> {{ user.userprofile.country }}</li>
+          </ul>
+        {% else %}
+          <p>No profile information yet. <a href="{% url 'update_profile' %}">Update Profile</a></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

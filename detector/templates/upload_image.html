@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Image Upload
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Image Upload</h1>
+    
+    {% if messages %}
+        
+        {% for message in messages %}
+            <h5>{{message}}</h5>
+        {% endfor %}
+            
+    {% endif %}
+        
+    <form action="{% url 'upload_image' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="image">Select an image:</label>
+            <input type="file" name="image" id="image" accept="image/*" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary">Detect</button>
+    </form>
+
+    <h2 class="mt-4">Preview:</h2>
+    <div id="preview" class="mt-2"></div>
+</div>
+
+<script>
+    function previewImage() {
+        var preview = document.querySelector('#preview');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.innerHTML = '<img src="' + reader.result + '" alt="Image Preview" class="img-fluid">';
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.innerHTML = 'No image selected';
+        }
+    }
+
+    var fileInput = document.getElementById('image');
+    fileInput.addEventListener('change', previewImage);
+</script>
+{% endblock %}
